@@ -1,5 +1,12 @@
 import m from 'mithril';
+import T from 's-types';
 import Tooltip from './Tooltip.js';
+
+const WordType = T({
+	word: T.string,
+	wordClass: T.string,
+	replacements: T.arrayOf(T.string)
+});
 
 function tooltipValue(replacements) {
 
@@ -12,6 +19,11 @@ function tooltipValue(replacements) {
 }
 
 function view({ attrs }) {
+
+	if (window.__DEV__) {
+		WordType(attrs);
+	}
+
 	if (attrs.replacements.length === 0) {
 		return m('span.Word', attrs.word);
 	}
