@@ -6518,8 +6518,6 @@ var dictionary = {
 	"zymolysis": ["-"]
 };
 
-// import T from 's-types';
-
 function keepInBounds(ref) {
 	var dom = ref.dom;
 
@@ -6611,6 +6609,8 @@ var App = {
 		);
 	}
 };
+
+window.__DEV__ = window.location.hostname === 'localhost';
 
 mithril.mount(document.getElementById('app'), App);
 
