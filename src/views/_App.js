@@ -1,7 +1,7 @@
 import m from 'mithril';
 import stream from 'mithril/stream';
 import dictionary from '../dictionary.js';
-import Tooltip from './Tooltip.js';
+import Word from './Word.js';
 
 function getWordClass(word) {
 	if (dictionary[word] === undefined) { return ''; }
@@ -29,29 +29,6 @@ const model = {
 	}
 };
 
-function tooltipValue(replacements) {
-
-	if (replacements.length === 1 && replacements[0] === '-') {
-		return 'No replacements found';
-	}
-
-	return `Use: ${replacements.join(', ')}`;
-
-}
-
-const Word = {
-	view({ attrs }) {
-		if (attrs.replacements.length === 0) {
-			return m('span.Word', attrs.word);
-		}
-		return (
-			m(Tooltip, { value: tooltipValue(attrs.replacements) },
-				m('span.Word', { className: attrs.wordClass }, attrs.word)
-			)
-		);
-	}
-};
-
 const App = {
 	view() {
 		return (
@@ -62,7 +39,7 @@ const App = {
 					oninput: m.withAttr('value', model.inputText)
 				}),
 				m('.center.pad20',
-					m('button.Button', { onclick: model.parse }, 'Abcdefg')
+					m('button.Button', { onclick: model.parse }, 'Parse for Anglish origin')
 				),
 				m('hr'),
 				m('.Output', model.parsedText.map((data) => m(Word, data)))

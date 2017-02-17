@@ -6524,7 +6524,7 @@ function keepInBounds(ref) {
 	console.log({dom: dom.querySelector('.Tooltip')});
 }
 
-function view(ref) {
+function view$1(ref) {
 	var attrs = ref.attrs;
 	var children = ref.children;
 
@@ -6537,6 +6537,33 @@ function view(ref) {
 }
 
 var Tooltip = {
+	view: view$1
+};
+
+function tooltipValue(replacements) {
+
+	if (replacements.length === 1 && replacements[0] === '-') {
+		return 'No replacements found';
+	}
+
+	return ("Use: " + (replacements.join(', ')));
+
+}
+
+function view(ref) {
+	var attrs = ref.attrs;
+
+	if (attrs.replacements.length === 0) {
+		return mithril('span.Word', attrs.word);
+	}
+	return (
+		mithril(Tooltip, { value: tooltipValue(attrs.replacements) },
+			mithril('span.Word', { className: attrs.wordClass }, attrs.word)
+		)
+	);
+}
+
+var Word = {
 	view: view
 };
 
@@ -6566,31 +6593,6 @@ var model = {
 	}
 };
 
-function tooltipValue(replacements) {
-
-	if (replacements.length === 1 && replacements[0] === '-') {
-		return 'No replacements found';
-	}
-
-	return ("Use: " + (replacements.join(', ')));
-
-}
-
-var Word = {
-	view: function view(ref) {
-		var attrs = ref.attrs;
-
-		if (attrs.replacements.length === 0) {
-			return mithril('span.Word', attrs.word);
-		}
-		return (
-			mithril(Tooltip, { value: tooltipValue(attrs.replacements) },
-				mithril('span.Word', { className: attrs.wordClass }, attrs.word)
-			)
-		);
-	}
-};
-
 var App = {
 	view: function view() {
 		return (
@@ -6601,7 +6603,7 @@ var App = {
 					oninput: mithril.withAttr('value', model.inputText)
 				}),
 				mithril('.center.pad20',
-					mithril('button.Button', { onclick: model.parse }, 'Abcdefg')
+					mithril('button.Button', { onclick: model.parse }, 'Parse for Anglish origin')
 				),
 				mithril('hr'),
 				mithril('.Output', model.parsedText.map(function (data) { return mithril(Word, data); }))
