@@ -1319,7 +1319,7 @@ var dictionary = {
 	"ablative": ["-"],
 	"ablaut": ["-"],
 	"able": ["fit", "skilled"],
-	"-able": ["-worthy"],
+	// "-able": ["-worthy"],
 	"able to": ["can", "may"],
 	"ablution": ["washing", "cleansing"],
 	"abnegate": ["forgo", "forswear"],
@@ -6696,15 +6696,33 @@ T.schema = T['interface'] = function(schema) {
 
 var index$1 = T;
 
+var TooltipType = index$1({
+	value: index$1.string
+});
+
 function keepInBounds(ref) {
 	var dom = ref.dom;
 
-	console.log({dom: dom.querySelector('.Tooltip')});
+	var tooltipEl = dom.querySelector('.Tooltip');
+	var rect = tooltipEl.getBoundingClientRect();
+	var halfWidth = Math.round(rect.width / 2);
+	var rightOffset = Math.round(window.innerWidth - rect.right);
+	if (rect.left < 20) {
+		tooltipEl.style.left = halfWidth + "px";
+	}
+	else if (rect.right > window.innerWidth) {
+		tooltipEl.style.left = rightOffset + "px";
+	}
 }
 
 function view$1(ref) {
 	var attrs = ref.attrs;
 	var children = ref.children;
+
+
+	if (window.__DEV__) {
+		TooltipType(attrs);
+	}
 
 	return (
 		mithril('.Tooltip-wrap', { oncreate: keepInBounds },
@@ -6769,7 +6787,7 @@ function getReplacements(word) {
 }
 
 var model = {
-	inputText: stream('The aardvark entered the abbess'),
+	inputText: stream(''),
 	parsedText: [],
 	parse: function parse() {
 		model.parsedText = model.inputText().split(' ').map(function(word) {

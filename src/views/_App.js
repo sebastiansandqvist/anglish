@@ -16,7 +16,7 @@ function getReplacements(word) {
 }
 
 const model = {
-	inputText: stream('The aardvark entered the abbess'),
+	inputText: stream(''),
 	parsedText: [],
 	parse() {
 		model.parsedText = model.inputText().split(' ').map(function(word) {

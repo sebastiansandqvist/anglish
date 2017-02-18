@@ -22,7 +22,7 @@ export default {
 	"ablative": ["-"],
 	"ablaut": ["-"],
 	"able": ["fit", "skilled"],
-	"-able": ["-worthy"],
+	// "-able": ["-worthy"],
 	"able to": ["can", "may"],
 	"ablution": ["washing", "cleansing"],
 	"abnegate": ["forgo", "forswear"],
