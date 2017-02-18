@@ -66,9 +66,15 @@
 
 			.Word {
 				border-radius: 2px;
+				display: inline-block;
 				padding: 0 4px;
 			}
 
+/*			.Word.newLine {
+				display: block;
+				margin: 0 10px;
+			}
+*/
 			.Word.replaced {
 				background: #ffda0f;
 			}
@@ -78,7 +84,7 @@
 			}
 
 			.Tooltip-wrap {
-				display: inline-block;
+				display: inline;
 				position: relative;
 			}
 
@@ -102,7 +108,7 @@
 				transform: translateX(-50%) translateY(0);
 				transition: all .2s ease;
 				user-select: none;
-				width: 200px;
+				min-width: 100px;
 				visibility: hidden;
 				z-index: 1;
 			}
